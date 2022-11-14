@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <div id="root"></div>
+    <div id="root2"></div>
+
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+      // const Paint = ({ title, description, children }) => (
+      //   <>
+      //     <h1>{title}</h1>
+      //     <h3>{description}</h3>
+      //     {children}
+      //   </>
+      // );
+
+      // // JSX와 JS는 섞어쓸 수 있다.
+      // const element = (
+      //   <>
+      //     <Paint title="Child" description="child">
+      //       {Paint({ title: "Hiiiiiiiii", description: "Byeeeeeeeee", children: "Whyyyyyyyyy"})}
+      //     </Paint>
+      //   </>
+      // );
+
+
+      // JSX와 JS는 섞어쓸 수 있다. (interpolation)
+      const Txt = ({text}) => {
+        // text가 대문자로 시작하면 h1, 소문자로 시작하면 h3 태그로 출력하기
+            // charAt() 함수는 문자열에서 특정 인덱스에 위치하는 유니코드 단일문자를 반환한다.
+        if ( text.charAt(0) === text.charAt(0).toUpperCase() ) {
+          return (
+            <h3>      {/* 태그니까 jsx */}
+              {text}  {/* 변수니까 js */}
+            </h3>      // 태그니까 jsx
+            )
+        } else {
+          return <h1>{text}</h1>;
+        }
+      };
+
+      // JSX와 JS는 섞어쓸 수 있다.
+      const element = (
+        <>
+          <Txt text="Text" />
+          <Txt text="text" />
+          <Txt text="upper" />
+        </>
+      );
+
+      ReactDOM.render(element, rootElement);
+
+
+      /* select하는 법*/
+      const rootElement2 = document.getElementById("root2");
+      // function Number ({ num, selected }) { // 홀수는 작게<h3>, 짝수는 크게<h1>
+      //   return num % 2 === 0 ? <h1>{num}</h1> : <h3>{num}</h3>
+      // }
+      function Number ({ num, selected }) { // selected 값이 true인 것만 크게<h1>
+        return selected ? <h1>{num}</h1> : <h3>{num}</h3>
+      }
+      const element2 = (
+        <>
+          <Number num={1} />
+          <Number num={2} selected={true} />
+          <Number num={3} />
+          <Number num={4} />
+        </>
+      );
+
+      ReactDOM.render(element2, rootElement2);
+
+    </script>
+  </body>
+</html>

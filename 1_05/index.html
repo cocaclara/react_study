@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+      
+      function Number ({ num, selected }) { // selected 값이 true인 것만 크게<h1>
+        return selected ? <h1>{num}</h1> : <h3>{num}</h3>
+      }
+
+      // map()사용해서 반복문
+      const element = (
+        <>
+          {[1,2,3,4,5,6,7,8,9,10].map((num) => (  // num이 3일 때만 셀렉(true)
+            <Number num={num} selected={num === 3} />
+          ))}
+        </>
+      );
+
+      ReactDOM.render(element, rootElement);
+    </script>
+    <style>
+      #root{
+        color: red;
+      }
+    </style>
+  </body>
+</html>

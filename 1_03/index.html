@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+      // const paint = (title, description) => (
+      //   <>
+      //     <h1>{title}</h1>
+      //     <h3>{description}</h3>
+      //   </>
+      // );
+
+      // const element = (
+      //   <>
+      //     {paint("Good", "good")}
+      //     {paint("Bad", "bad")}
+      //     {paint("So", "so")}
+      //   </>
+      // );
+
+      // children은 계속 찍어낼 수 있음(제약 없는 찍어내기)
+      const Paint = ({ title, description, children }) => (
+        <>
+          <h1>{title}</h1>
+          <h3>{description}</h3>
+          {children}
+        </>
+      );
+
+      const Good = () => <h5>Good</h5>;
+
+      // children은 계속 찍어낼 수 있음(제약 없는 찍어내기)
+      const element = (
+        <>
+          <Paint title="Child" description="child">
+            <h1>Hi</h1>
+            <Paint title="Bye" description="bye" />
+
+            <Good />
+            <Good />
+            <Good />
+          </Paint>
+
+          <Paint title="Good" description="good" />
+          <Paint title="Bad" description="bad" />
+          <Paint title="So" description="so" />
+        </>
+      );
+
+
+      ReactDOM.render(element, rootElement);
+
+    </script>
+  </body>
+</html>
