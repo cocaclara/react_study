@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <div id="root"></div>
+    <div id="root2"></div>
+    
+    <script type="text/babel">  // 리액트는 계속 변경되는 element를 그릴 떄, 변경되는 곳만 바꾼다.
+      const rootElement = document.getElementById("root");
+      const rootElement2 = document.getElementById("root2");
+
+      const random = () => {
+        const number = Math.floor(Math.random() * (10 - 1) + 1);  // 1보다 크고 10보다 작음(범위)
+        const element = (
+          <>
+            <button children={number} />
+            <div><p>{number}</p></div>
+          </>
+        );
+        ReactDOM.render(element, rootElement);
+      }
+
+      const tick = () => {
+        const element = (
+          <div>
+            <h1>Hellow, world</h1>
+            <h2>It is {new Date().toLocaleTimeString()}.</h2>
+          </div>
+        );
+        ReactDOM.render(element, rootElement2);
+      }
+      
+      setInterval(random, 1000);
+      setInterval(tick, 1000);
+    </script>
+
+    <!-- element 타입이 바뀌면, 이전 element는 버리고 새로 그린다. -->
+    <!-- element 타입이 같다면, key를 먼저 비교하고, props를 비교해서 변경사항을 반영한다. -->
+  </body>
+</html>

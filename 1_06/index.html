@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <div id="root"></div>
+    <!-- <script>
+      const rootElement = document.getElementById("root");
+
+      const random = () => {
+        // Math.floor(): 소수점 버림
+        const number = Math.floor(Math.random() * (10 - 1) + 1);  // 1보다 크고 10보다 작음(범위)
+        const element = `
+          <button>${number}</button>
+        `;
+        rootElement.innerHTML = element;
+      }
+      
+      setInterval(random, 1000);
+    </script> -->
+    
+    <script type="text/babel">  // 리액트는 계속 변경되는 element를 그릴 떄, 변경되는 곳만 바꾼다.
+      const rootElement = document.getElementById("root");
+
+      const random = () => {
+        // Math.floor(): 소수점 버림
+        const number = Math.floor(Math.random() * (10 - 1) + 1);  // 1보다 크고 10보다 작음(범위)
+        const element = (
+          <>
+            <button>{number}</button>
+            <div><p>{number}</p></div>
+          </>
+        );
+        ReactDOM.render(element, rootElement);
+      }
+      
+      setInterval(random, 1000);
+    </script>
+
+
+    <!-- 결론: 바닐라JS는 계속 변경될 때마다 div(부모요소까지 전체)를 계속 다시 그리지만(비효율),
+        리액트는 변경되는 곳만 바꾼다.(효율적임) -->
+
+  </body>
+</html>

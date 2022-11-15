@@ -15,14 +15,30 @@
       }
 
       // map()사용해서 반복문
-      const element = (
+      // const element = (
+      //   <>
+      //     {[1,2,3,4,5,6,7,8,9,10].map((num) => (  // num이 3일 때만 셀렉(true)
+      //       <Number num={num} selected={num === 3} />
+      //     ))}
+      //   </>
+      // );
+
+
+      // map()사용해서 반복문
+        // map()으로 element를 찍어낼 땐, 항상 key가 있어야 함!
+        const element = (
         <>
           {[1,2,3,4,5,6,7,8,9,10].map((num) => (  // num이 3일 때만 셀렉(true)
-            <Number num={num} selected={num === 3} />
+            <Number
+              className="title"
+              key={num}
+              num={num}
+              selected={num === 3}
+            />
           ))}
         </>
-      );
-
+        );
+        
       ReactDOM.render(element, rootElement);
     </script>
     <style>
