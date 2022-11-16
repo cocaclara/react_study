@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <div id="root"></div>
+    
+    <!-- 이벤트 핸들러 -->
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+
+      const state = { keyword: "", typing: false, reult: "" };
+
+      const App = () => {
+
+         //input의 변경값을 넣기 위한 함수
+        function handleChange() {
+          // // 타이핑할 때마다 input의 value대로 alert가 띄워짐
+          // alert(event.target.value);
+
+          // 기존 Object(state)의 keyword(빈 값)에 타겟input의 value 넣기
+                  // 타이핑할 때는 typing 값을 true로 설정
+                  // 기존 typing값이 false였는데 true로 바뀐건, 변화(타이핑)가 있다는 표시
+          setState({ typing: true, keyword: event.target.value });
+        }
+
+        // 버튼 클릭할 때마다 p 태그 내용을 변경하기 위한 함수
+        function handleClick(){
+          setState({
+            // 타이핑 안할 때는 typing 값을 false로 설정
+            typing: false,
+            result: `We find results of ${state.keyword}`
+          });
+        }
+
+        return (
+          // input 안에 내용을 변경힐 때마다 state.keyword를 새로 update
+          <>
+            <input onChange={handleChange} />
+            <button onClick={handleClick}>search</button>
+            <p>
+              {state.typing ? `Looking for ${state.keyword}...` : state.result}
+            </p>
+          </>
+        )
+      };
+
+      // 기존의 오브젝트(state) 값에 새로운 오브젝트(newState)를 넣을건데, 달라진 것만 update하기
+      function setState(newState) {
+        Object.assign(state, newState);   // 이전 객체를 새로운 객체로 덮어쓰기
+
+        // 달라진 것을 update하기 위해 render 함수 호출
+        render();
+      }
+
+      // 리액트는 블변객체이므로 render 함수를 만들어서 변경할 때마다 호출하여 변경값 적용(변경있는 props들만)
+      function render() {
+        ReactDOM.render(<App />, rootElement);
+      }
+
+      // 첫화면에서 input, button, p 태그 띄우기 위해
+      render();
+
+    </script>
+
+  </body>
+</html>
