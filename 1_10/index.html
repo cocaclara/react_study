@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <div id="root"></div>
+    
+    <!-- 이벤트 핸들러 -->
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+
+      
+      /* 컴포넌트 상태 다루기(관리) : useState */
+      
+      // 변경될 때마다 리랜더링하지 않고, React.useState()사용하기
+      const App = () => {
+        // 초기화 데이터
+        // const keywordState = React.useState("");
+        // const keyword = keywordState[0];
+        // const setkeyword = keywordState[1];
+        const [keyword, setKeyword] = React.useState("");
+        const [result, setResult] = React.useState("");
+        const [typing, setTyping] = React.useState(false);
+
+        function handleChange() {
+          setKeyword(event.target.value);
+          setTyping(true);
+        }
+
+        function handleClick(){
+          setTyping(false);
+          setResult(`We find of results of ${keyword}`);
+        }
+
+        return (
+          <>
+            <input onChange={handleChange} />
+            <button onClick={handleClick}>search</button>
+            <p>
+              {typing ? `Looking for ${keyword}...` : result}
+            </p>
+          </>
+        )
+      };
+
+      ReactDOM.render(<App />, rootElement);
+    </script>
+
+  </body>
+</html>
