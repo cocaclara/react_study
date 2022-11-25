@@ -12,22 +12,22 @@
       const rootElement = document.getElementById("root");
 
       /* 컴포넌트 사이드 이펙트 다루기 : useEffect */
-
+      // 컴포넌트(여러 엘리먼트 보유) APP
       const App = () => {
-        // 초기화 데이터
-        
+        // 초기화 데이터       
+        const [keyword, setKeyword] = React.useState(          
           // localStorge 사용하면 새로고침해도 로컬에 저장된 값 꺼내와서 그대로 남아있음.
-          // 로컬에서 저장하고 꺼내오는 거라 딜레이가 있을 수 있음 & 바뀔때마다 랜더됨
-        const [keyword, setKeyword] = React.useState( () => {
-          // 처음에 읽을 땐 조금 늦더라도, 결국 함수가 실행될 때의 결과물을 받아온다.
-          return window.localStorage.getItem('keyword');
-        });
+          // 로컬에서 저장하고 꺼내오는 것(사용하는 것)이라 딜레이가 있을 수 있음 & 바뀔때마다 랜더링됨
+          // 처음에 읽을 땐 조금 늦더라도, 결국 함수가 실행될 때의 결과물을 받아온다. //lazy initialize
+          () =>  window.localStorage.getItem('keyword')
+        );
         const [result, setResult] = React.useState("");
         const [typing, setTyping] = React.useState(false);
 
         React.useEffect(() => {
+          // 로컬에 저장하기 설정
           window.localStorage.setItem('keyword', keyword);          
-        }, [keyword, typing]); // 두번째 인자 : 사이드이펙트를 일으키고 싶은 대상; 키워드 or 타이핑 바뀔때만 부수적으로 localStorage에 저장
+        }, [keyword, typing]); // 두번째 인자 : 사이드이펙트를 일으키고 싶은 대상; 키워드 or 타이핑(T/F) 바뀔때만 부수적으로 localStorage에 저장
 
 
 

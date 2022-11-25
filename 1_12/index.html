@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>강의15- custom Hook 만들기(효율적)</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <div id="root"></div>
+    
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+
+      /* ------------custom Hook 만들기-------------- */
+      function useLocalStorage(itemName, value = "") {    //기본 value값은 ""
+        const [state, setState] = React.useState(          
+          () =>  window.localStorage.getItem(itemName) || value //value : input value가 빈값 
+        );
+        
+        // useEffect(function:함수, deps:배열 형태)
+        React.useEffect(() => {
+          window.localStorage.setItem(itemName, state);          
+        }, [state]);
+
+        return [state, setState];
+      }
+
+
+    
+      const App = () => {
+        // 초기화 데이터       
+        // const [keyword, setKeyword] = React.useState(          
+        //   () =>  window.localStorage.getItem('keyword') || ""
+        // );
+        const [keyword, setKeyword] = useLocalStorage('keyword');  //이렇게 하면 state자리에 keyword가 들어가고, getItem 자리아 "keyword"가 들어감
+        const [result, setResult] = useLocalStorage('result');
+        const [typing, setTyping] = useLocalStorage('typing', false); // 기본 value 값은 false, 타이핑하면 true, 타이핑 멈춰도 그대로, search버튼 클릭하면 false
+
+        // React.useEffect(() => {
+        //   // 로컬에 저장하기 설정
+        //   window.localStorage.setItem('keyword', keyword);          
+        // }, [keyword]);
+
+
+        function handleChange() {
+          window.localStorage.setItem('keyword', event.target.value);
+          setKeyword(event.target.value);
+          setTyping(true);
+        }
+        function handleClick(){
+          setTyping(false);
+          setResult(`We find of results of ${keyword}`);
+        }
+
+        return (
+          <>
+            <input onChange={handleChange} value={keyword} />
+            <button onClick={handleClick}>search</button>
+            <p>
+              {typing ? `Looking for ${keyword}...` : result}
+            </p>
+          </>
+        )
+      };
+
+      ReactDOM.render(<App />, rootElement);
+    </script>
+
+  </body>
+</html>
