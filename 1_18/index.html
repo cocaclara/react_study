@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>강의21- Form 다루기</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+
+      const App = () => {
+        const handleSubmit = (event) => {
+          event.preventDefault();
+
+          console.log(event.target);  // 매개변수로 전달된 값을 출력  (HTML 구조)
+          console.dir(event.target);  // 매개변수로 전달된 객체의 속성을 출력 (JSON 구조)
+          console.dir(event.target.elements);
+          
+          alert(`FirstName: ${event.target.elements.fname.value}, Choosed Car: ${event.target.elements.cars.value}`);
+        };
+        return (
+          <>
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="fname">First name:</label>
+              <br />
+              <input type="text" id="fname" name="fname" defaultValue="John" />
+              <br />
+              <label htmlFor="cars">Choose a car:</label>
+              <select name="cars" id="cars">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="opel">Opel</option>
+                <option value="audi">Audi</option>
+              </select>
+              <input type="submit" defaultValue="Submit" />
+            </form>
+          </>
+        )
+      };
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+
+  </body>
+</html>

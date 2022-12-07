@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>강의23- Error 다루기</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+
+      const App = () => {
+        const Child = () => {
+          throw new Error();
+          return <p>Child...</p>;
+        }
+        return (
+          <>
+            <p>App</p>
+            <Child />
+          </>
+        )
+      };
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+
+  </body>
+</html>
