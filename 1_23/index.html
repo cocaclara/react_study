@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>강의27- 상태 끌어올리기</title>
+    <title>강의28- 데이터 Fetch 해보기</title>
   </head>
   <body>
     <div id="root"></div>
@@ -10,51 +10,46 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <script type="text/babel">
-      const Id = ({handleIdChange}) => {
-        return (
-          <>
-            <label>ID: </label>
-            <input onChange={handleIdChange} />
-          </>
-        );
-      };
-
-      const Password = ({handlePasswordChange}) => {        
-        return (
-          <>
-            <label>PW: </label>
-            <input type="password" onChange={handlePasswordChange} />
-          </>
-        );
-      };
-      
+    
       const App = () => {
-        const [id, setId] = React.useState('');
-        const [password, setPassword] = React.useState('');
+        const [data, setData] = React.useState(null);
+        const [error, setError] = React.useState(null);
 
-        const handleIdChange = (event) => {
-          setId(event.target.value);
-        };
+        React.useEffect(() => {
+          fetch("https://raw.githubusercontent.com/techoi/raw-data-api/main/simple-api.json")
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (myJson) {
+              console.log(JSON.stringify(myJson.data));
+              setData(myJson.data);
+            })
+            .catch( (error) => {
+              setError(error.message);
+              // alert(error);
+            });
+        }, []);
 
-        const handlePasswordChange = (event) => {
-          setPassword(event.target.value);
-        };
+        if (error !== null) {
+          return <p>There is some Error...</p>;
+        }
 
-        const handleLoginClick = () => {
-          alert(`id: ${id}, pw: ${password}`);
-        };
-        
+        if (data == null) {
+          return <p>Loading...</p>
+        }
+
+
         return (
           <>
-            <Id handleIdChange={handleIdChange} />
-            <br />
-            <Password handlePasswordChange={handlePasswordChange} />
-            <button
-              disabled={id.length === 0 || password.length === 0}
-              onClick={handleLoginClick}
-            >
-              Login
-            </button>
+            <div>
+              <p>People</p>
+              {data.people.map( (person) => (
+                <div>
+                  <span>name: {person.name}, </span>
+                  <span>age: {person.age}</span>
+                </div>
+              ))}
+            </div>
           </>
         )
       };
