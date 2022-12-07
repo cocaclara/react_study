@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>강의25- key와 리랜더링 알아보기</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      // key : value를 특정하는 이름
+
+      const todos = [
+      {id: 1, value: "Wash dishes"},
+      {id: 2, value: "Clean the bed"},
+      {id: 3, value: "Running"},
+      {id: 4, value: "Learning"}
+      ];
+    
+      const App = () => {
+        const [items, setItems] = React.useState(todos);
+
+        const handleDoneClick = (todo) => {
+          // todo를 빼고 남은 값(item => item !== todo)을 filter 처리해서 setItem으로 다시 정렬
+          setItems( items => items.filter( item => item !== todo ) );
+        };
+
+        const handleRestoreClick = () => {
+          // 현재 items(...items)은 냅두고, todos 리스트에서 현재 items(...items)가 아닌 값(item => !items.includes(item))을 찾아서 추가
+          setItems( items => [...items, todos.find( item => !items.includes(item) )] );
+        };
+
+        return (
+          <>
+            {items.map((todo) => (
+              <div key={todo.id}>
+                <span>{todo.value}</span>
+                <button onClick={() => handleDoneClick(todo)}>Done</button>
+              </div>
+            ))}
+            <button onClick={() => handleRestoreClick()}>Restore</button>
+          </>
+        )
+      };
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+
+  </body>
+</html>

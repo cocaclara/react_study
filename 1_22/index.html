@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>강의26- key와 리랜더링 알아보기2</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      // key : value를 특정하는 이름
+
+      const todos = [
+        [
+          {id: 1, value: "Wash dishes"},
+          {id: 2, value: "Clean the bed"},
+          {id: 3, value: "Running"},
+          {id: 4, value: "Learning"},
+        ],
+        [
+          {id: 4, value: "Learning"},
+          {id: 1, value: "Wash dishes"},
+          {id: 2, value: "Clean the bed"},
+          {id: 3, value: "Running"},
+        ],
+        [
+          {id: 3, value: "Running"},
+          {id: 4, value: "Learning"},
+          {id: 1, value: "Wash dishes"},
+          {id: 2, value: "Clean the bed"},
+        ],
+        [
+          {id: 2, value: "Clean the bed"},
+          {id: 3, value: "Running"},
+          {id: 4, value: "Learning"},
+          {id: 1, value: "Wash dishes"},
+        ],
+      ];
+    
+      const App = () => {
+        const [items, setItems] = React.useState(todos[0]);
+
+        React.useEffect(() => {
+          const interval = setInterval(() => {
+            const random = Math.floor(Math.random() * 3);
+            setItems(todos[random]);
+          }, 1000);
+          
+          return () => {
+            clearInterval(interval);
+          };
+        },[]);
+
+        const handleDoneClick = (todo) => {
+          // todo를 빼고 남은 값(item => item !== todo)을 filter 처리해서 setItem으로 다시 정렬
+          setItems( items => items.filter( item => item !== todo ) );
+        };
+
+        const handleRestoreClick = () => {
+          // 현재 items(...items)은 냅두고, todos 리스트에서 현재 items(...items)가 아닌 값(item => !items.includes(item))을 찾아서 추가
+          setItems( items => [...items, todos.find( item => !items.includes(item) )] );
+        };
+
+        // 최후의 수단으로 배열의 index를 key로 사용할 수 있다.
+        // 만약 항목들이 재배열되지 않는다면 이 방법도 잘 동작하지만,
+        // 재배열되는 경우 비효율적으로 동작할 것임
+        return (
+          <>
+            {items.map((todo, index) => (
+              <div key={todo.id}>
+                <button onClick={() => handleDoneClick(todo)}>
+                  {todo.value}
+                </button>
+              </div>
+            ))}
+            <br />
+            <br />
+            <button onClick={() => handleRestoreClick()}>Restore</button>
+          </>
+        )
+      };
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+
+  </body>
+</html>
