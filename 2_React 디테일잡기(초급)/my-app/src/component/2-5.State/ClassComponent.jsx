@@ -7,10 +7,7 @@ export default class ClassComponent extends Component {
   }
 
   componentDidMount() {
-    this.timerID = setInterval(
-      () => this.tick(),
-      1000
-    );
+    this.timerID = setInterval(() => this.tick(),1000);
   }
 
   componentWillUnmount() {
@@ -26,7 +23,7 @@ export default class ClassComponent extends Component {
   render() {
     return (
       <div>
-        <h1>Hello, world!</h1>
+        <h1>Hello, world! It's Class Component!</h1>
         <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
       </div>
     );
