@@ -15,8 +15,9 @@ import './App.css';
 // import WelcomeDialog from './component/3-5.Composition/WelcomeDialog';
 // import Dialog from './component/3-6.Composition2/Dialog';
 // import ThankyouDialog from './component/3-6.Composition2/ThankyouDialog';
-import Input from './component/3-7.HOC/Input';
-import Button from './component/3-7.HOC/Button';
+// import Input from './component/3-7.HOC/Input';
+// import Button from './component/3-7.HOC/Button';
+import Memo from './component/3-8.Memoization/Memo';
 
 function App() {
   return (
@@ -36,8 +37,9 @@ function App() {
       {/* <WelcomeDialog /> */}
       {/* <Dialog /> */}
       {/* <ThankyouDialog/> */}
-      <Input />
-      <Button />
+      {/* <Input /> */}
+      {/* <Button /> */}
+      <Memo />
     </div>
   );
 }
