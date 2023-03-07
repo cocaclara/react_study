@@ -19,7 +19,8 @@ import './App.css';
 // import Button from './component/3-7.HOC/Button';
 // import Memo from './component/3-8.Memoization/Memo';
 // import Example from './component/3-10.Context/Example';
-import Example from './component/3-11.Portal/Example';
+// import Example from './component/3-11.Portal/Example';
+import Component from './component/3-14.PropTypes/Component';
 
 
 function App() {
@@ -43,7 +44,8 @@ function App() {
       {/* <Input /> */}
       {/* <Button /> */}
       {/* <Memo /> */}
-      <Example />
+      {/* <Example /> */}
+      <Component />
     </div>
   );
 }
