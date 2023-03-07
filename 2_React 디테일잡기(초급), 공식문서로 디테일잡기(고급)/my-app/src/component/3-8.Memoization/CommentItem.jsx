@@ -23,7 +23,12 @@ function CommentItem({title, content, likes, onClick}) {
     alert(`${title} 눌림`);
   };
 
-  const rate = useMemo(() => {
+  // 특정 값을 재사용하고 싶을 때 -> useMemo
+  // 특정 함수를 재사용하고 싶을 때 -> useCallback
+  // useCallback(fn, [deps])은 useMemo(() => fn, [deps])와 같다.
+
+  // clickCount 가 10보다 크면 {rate}에 'Good' 표시
+  const rate = useMemo(() => {    // useMemo를 사용하지 않으면, 나의 상태(눌렀을 떄)도 변경되서 리랜더링 됨.
     console.log('rate check');
     return clickCount > 10 ? 'Good' : 'Bad';
   }, [clickCount]);

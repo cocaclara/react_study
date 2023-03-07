@@ -17,7 +17,10 @@ import './App.css';
 // import ThankyouDialog from './component/3-6.Composition2/ThankyouDialog';
 // import Input from './component/3-7.HOC/Input';
 // import Button from './component/3-7.HOC/Button';
-import Memo from './component/3-8.Memoization/Memo';
+// import Memo from './component/3-8.Memoization/Memo';
+// import Example from './component/3-10.Context/Example';
+import Example from './component/3-11.Portal/Example';
+
 
 function App() {
   return (
@@ -39,7 +42,8 @@ function App() {
       {/* <ThankyouDialog/> */}
       {/* <Input /> */}
       {/* <Button /> */}
-      <Memo />
+      {/* <Memo /> */}
+      <Example />
     </div>
   );
 }
